@@ -1,0 +1,61 @@
+@use '@/styles/variables' as *;
+
+.container {
+  position: fixed;
+  inset: 0;
+  max-width: $max-width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: $spacing-xl;
+  background-color: $color-bg;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $color-accent;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $color-text-primary;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  line-height: 1.8;
+}
+
+.hint {
+  position: absolute;
+  bottom: $spacing-xl;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
