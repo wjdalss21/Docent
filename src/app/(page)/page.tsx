@@ -23,7 +23,7 @@ function HomeContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <ArtworkGrid />
+            <ArtworkGrid onLogoClick={() => setShowIntro(true)} />
           </motion.div>
         )}
       </AnimatePresence>
