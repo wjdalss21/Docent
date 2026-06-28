@@ -1,0 +1,301 @@
+@use '@/styles/variables' as *;
+
+.page {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: $color-surface;
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md;
+  flex-shrink: 0;
+}
+
+.backBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $color-text-primary;
+  color: $color-surface;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.consultBtn {
+  padding: 8px $spacing-md;
+  border-radius: 20px;
+  border: 1.5px solid $color-text-primary;
+  background: transparent;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  color: $color-text-primary;
+  transition: background $transition-base;
+
+  &:active {
+    background: $color-bg;
+  }
+}
+
+.scrollContent {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.artworkInfo {
+  padding: $spacing-xs $spacing-lg $spacing-md;
+}
+
+.artworkTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $color-text-primary;
+  line-height: 1.3;
+
+  span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: $color-text-secondary;
+    margin-left: 6px;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: $color-border;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.artworkMeta {
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid $color-border;
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: 1.6;
+  }
+}
+
+.docentSection {
+  padding: $spacing-lg;
+}
+
+.docentPrompt {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+}
+
+.botIcon {
+  width: 40px;
+  height: 40px;
+  background: $color-text-primary;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.promptText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $color-text-primary;
+  line-height: 1.5;
+  padding-top: 6px;
+}
+
+.docentResult {
+  .attributeTitle {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-md;
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: $color-text-primary;
+    }
+  }
+}
+
+.divider {
+  height: 1px;
+  background: $color-border;
+  margin-bottom: $spacing-md;
+}
+
+.content {
+  font-size: 0.9375rem;
+  line-height: 1.9;
+  color: $color-text-primary;
+
+  p {
+    margin-bottom: $spacing-sm;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  ul, ol {
+    padding-left: $spacing-lg;
+    margin-bottom: $spacing-sm;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: $color-text-primary;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.chatMessages {
+  margin-top: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.chatBubble {
+  max-width: 85%;
+  padding: 10px $spacing-md;
+  border-radius: 12px;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+
+  &.user {
+    align-self: flex-end;
+    background: $color-text-primary;
+    color: $color-surface;
+    border-bottom-right-radius: 4px;
+  }
+
+  &.assistant {
+    align-self: flex-start;
+    background: $color-bg;
+    color: $color-text-primary;
+    border-bottom-left-radius: 4px;
+  }
+}
+
+/* 하단 고정 영역 */
+.bottomBar {
+  flex-shrink: 0;
+  background: $color-surface;
+  border-top: 1px solid $color-border;
+}
+
+.attributeTabs {
+  display: flex;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+}
+
+.tabBtn {
+  flex: 1;
+  padding: 9px 4px;
+  border-radius: 20px;
+  border: 1.5px solid $color-border;
+  background: transparent;
+  font-size: $font-size-xs;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background $transition-base, color $transition-base, border-color $transition-base;
+  white-space: nowrap;
+  color: $color-text-primary;
+
+  &.active {
+    background: $color-text-primary;
+    color: $color-surface;
+    border-color: $color-text-primary;
+    font-weight: 700;
+  }
+}
+
+.chatInputArea {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-xs $spacing-md;
+  padding-bottom: max(#{$spacing-md}, env(safe-area-inset-bottom));
+}
+
+.chatInput {
+  flex: 1;
+  border: 1.5px solid $color-border;
+  border-radius: 24px;
+  padding: 11px $spacing-md;
+  font-size: $font-size-sm;
+  outline: none;
+  background: $color-surface;
+  color: $color-text-primary;
+  transition: border-color $transition-base;
+
+  &:focus {
+    border-color: $color-text-secondary;
+  }
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+
+  &:disabled {
+    background: $color-bg;
+    cursor: not-allowed;
+  }
+}
+
+.submitBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $color-text-primary;
+  color: $color-surface;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  transition: opacity $transition-base;
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}

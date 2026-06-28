@@ -8,11 +8,17 @@
   background-color: $color-bg;
 }
 
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md 0 $spacing-xs;
+}
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-lg 0 $spacing-md;
+  padding: $spacing-sm 0 $spacing-md;
 }
 
 .heading {
@@ -21,8 +27,14 @@
   color: $color-text-primary;
 }
 
-.searchBtn {
-  font-size: 1.25rem;
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.iconBtn {
+  font-size: 1.2rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -32,6 +44,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: $color-text-primary;
+  border-radius: $radius-md;
+  transition: background $transition-base;
+
+  &:active {
+    background: $color-border;
+  }
 }
 
 .search {

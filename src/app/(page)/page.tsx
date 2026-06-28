@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Intro from '@/components/Intro'
 import ArtworkGrid from '@/components/ArtworkGrid'
@@ -23,7 +23,9 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <ArtworkGrid />
+            <Suspense>
+              <ArtworkGrid />
+            </Suspense>
           </motion.div>
         )}
       </AnimatePresence>

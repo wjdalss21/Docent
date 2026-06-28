@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import ArtworkDetailClient from './ArtworkDetailClient'
+import QrConfirmClient from './QrConfirmClient'
 import type { Artwork } from '@/types'
 
-export default async function ArtworkDetailPage({
+export default async function QrConfirmPage({
   params,
 }: {
   params: Promise<{ id: string }>
@@ -18,5 +18,5 @@ export default async function ArtworkDetailPage({
 
   if (!artwork) notFound()
 
-  return <ArtworkDetailClient artwork={artwork as Artwork} />
+  return <QrConfirmClient artwork={artwork as Artwork} />
 }

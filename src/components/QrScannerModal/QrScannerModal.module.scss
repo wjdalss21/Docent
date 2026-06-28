@@ -1,0 +1,87 @@
+@use '@/styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+}
+
+.modal {
+  width: 100%;
+  max-width: 360px;
+  background: $color-text-primary;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-md;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: $color-surface;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition-base;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.instruction {
+  font-size: $font-size-base;
+  font-weight: 600;
+  color: $color-surface;
+  text-align: center;
+  margin-top: $spacing-xs;
+}
+
+.videoWrapper {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+
+  // 스캔 가이드 프레임
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: $radius-sm;
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hint {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
