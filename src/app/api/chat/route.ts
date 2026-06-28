@@ -1,15 +1,16 @@
 import { NextRequest } from 'next/server'
 import { streamText } from 'ai'
 import { anthropic } from '@ai-sdk/anthropic'
-import { buildChatPrompt } from '@/lib/prompts'
+import { buildChatSystemPrompt } from '@/lib/prompts'
 import type { Attribute, Tone, Level } from '@/types'
 
 const VALID_ATTRIBUTES = ['background', 'meaning', 'relation']
 const VALID_TONES = ['formal', 'humorous', 'child', 'reflective']
 const VALID_LEVELS = ['beginner', 'normal', 'expert']
+const MAX_HISTORY = 20
 
 export async function POST(request: NextRequest) {
-  const { artworkTitle, artistName, description, attribute, tone, level, docentContent, question } =
+  const { artworkTitle, artistName, description, attribute, tone, level, docentContent, chatHistory, question } =
     (await request.json()) as {
       artworkTitle: string
       artistName: string
@@ -18,6 +19,7 @@ export async function POST(request: NextRequest) {
       tone: Tone
       level: Level
       docentContent: string
+      chatHistory: { role: 'user' | 'assistant'; content: string }[]
       question: string
     }
 
@@ -33,7 +35,7 @@ export async function POST(request: NextRequest) {
     return new Response('잘못된 요청입니다.', { status: 400 })
   }
 
-  const prompt = buildChatPrompt({
+  const system = buildChatSystemPrompt({
     title: artworkTitle,
     artistName,
     description,
@@ -41,12 +43,17 @@ export async function POST(request: NextRequest) {
     tone,
     level,
     docentContent,
-    question,
   })
+
+  const recentHistory = (chatHistory ?? []).slice(-MAX_HISTORY)
 
   const result = streamText({
     model: anthropic('claude-haiku-4-5-20251001'),
-    prompt,
+    system,
+    messages: [
+      ...recentHistory.map((msg) => ({ role: msg.role, content: msg.content })),
+      { role: 'user' as const, content: question },
+    ],
   })
 
   return new Response(result.textStream.pipeThrough(new TextEncoderStream()), {

@@ -58,7 +58,7 @@ export function buildDocentPrompt({
 - 전문 용어는 이해수준에 맞게 조정하세요`
 }
 
-export function buildChatPrompt({
+export function buildChatSystemPrompt({
   title,
   artistName,
   description,
@@ -66,7 +66,6 @@ export function buildChatPrompt({
   tone,
   level,
   docentContent,
-  question,
 }: {
   title: string
   artistName: string
@@ -75,25 +74,25 @@ export function buildChatPrompt({
   tone: Tone
   level: Level
   docentContent: string
-  question: string
 }): string {
-  return `당신은 국립현대미술관의 AI 도슨트입니다.
+  return `당신은 국립현대미술관의 AI 도슨트입니다. 관람객과 작품에 대해 대화하고 있습니다.
 
 [작품 정보]
 - 작품명: ${title}
 - 작가: ${artistName}
 - 작품 해설: ${description}
 
-[이전 도슨트 설명]
+[도슨트가 앞서 설명한 내용]
 ${docentContent}
 
-[설정]
+[대화 설정]
 - 설명 속성: ${ATTRIBUTE_LABELS[attribute]}
 - 톤앤매너: ${TONE_LABELS[tone]}
 - 이해수준: ${LEVEL_LABELS[level]}
 
-[관람객 질문]
-${question}
-
-위 질문에 자연스럽게 답변하세요. 이전 도슨트 설명과 일관된 톤앤매너와 이해수준을 유지하세요. 150자 이내로 간결하게 답변하세요.`
+규칙:
+- 이전 도슨트 설명과 일관된 톤앤매너·이해수준 유지
+- 대화 맥락을 고려해 자연스럽게 이어서 답변
+- 150자 이내로 간결하게 답변
+- 모르는 내용은 솔직히 모른다고 말할 것`
 }

@@ -12,6 +12,7 @@ import styles from './ArtworkDetail.module.scss'
 
 interface Props {
   artwork: Artwork
+  fromQr?: boolean
 }
 
 const ATTRIBUTE_TABS: { attr: Attribute; label: string }[] = [
@@ -25,7 +26,7 @@ interface ChatMsg {
   content: string
 }
 
-export default function ArtworkDetailClient({ artwork }: Props) {
+export default function ArtworkDetailClient({ artwork, fromQr = false }: Props) {
   const router = useRouter()
   const { attribute, tone, level, setAttribute, resetSession } = useDocentStore()
 
@@ -39,12 +40,16 @@ export default function ArtworkDetailClient({ artwork }: Props) {
   const chatAbortRef = useRef<AbortController | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
-  // tone 미선택 시 tone 페이지로
+  // tone 미선택 시 리다이렉트 (QR 직접 진입이면 확인 페이지로)
   useEffect(() => {
     if (tone === null) {
-      router.replace(`/artwork/${artwork.id}/tone`)
+      if (fromQr) {
+        router.replace(`/artwork/${artwork.id}/qr`)
+      } else {
+        router.replace(`/artwork/${artwork.id}/tone`)
+      }
     }
-  }, [tone, router, artwork.id])
+  }, [tone, router, artwork.id, fromQr])
 
   // 채팅 메시지 추가될 때 스크롤
   useEffect(() => {
@@ -127,6 +132,7 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           tone,
           level,
           docentContent,
+          chatHistory: chatMessages,
           question,
         }),
         signal: controller.signal,

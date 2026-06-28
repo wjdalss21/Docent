@@ -5,10 +5,13 @@ import type { Artwork } from '@/types'
 
 export default async function ArtworkDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>
+  searchParams: Promise<{ from?: string }>
 }) {
   const { id } = await params
+  const { from } = await searchParams
 
   const { data: artwork } = await supabase
     .from('artworks')
@@ -18,5 +21,5 @@ export default async function ArtworkDetailPage({
 
   if (!artwork) notFound()
 
-  return <ArtworkDetailClient artwork={artwork as Artwork} />
+  return <ArtworkDetailClient artwork={artwork as Artwork} fromQr={from === 'qr'} />
 }
