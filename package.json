@@ -16,7 +16,7 @@
     "@tanstack/react-query-devtools": "^5.0.0",
     "ai": "^4.0.0",
     "framer-motion": "^11.0.0",
-    "next": "15.3.3",
+    "next": "^15.5.19",
     "qr-scanner": "^1.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
