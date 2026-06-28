@@ -175,6 +175,8 @@ export default function ArtworkDetailClient({ artwork, fromQr = false }: Props) 
     }
   }
 
+  const artistName = artwork.artists?.name ?? '작가 미상'
+
   return (
     <div className={styles.page}>
       {/* 헤더 */}
@@ -200,6 +202,13 @@ export default function ArtworkDetailClient({ artwork, fromQr = false }: Props) 
 
       {/* 스크롤 영역 */}
       <div className={styles.scrollContent}>
+        {/* 작품 정보 */}
+        <div className={styles.artworkInfo}>
+          <h1 className={styles.artworkTitle}>
+            {artwork.title} <span>{artistName}</span>
+          </h1>
+        </div>
+
         {artwork.image_url && (
           <div className={styles.imageWrapper}>
             <Image
