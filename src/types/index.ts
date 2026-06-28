@@ -28,3 +28,4 @@ export interface DocentCache {
 
 export type Attribute = 'background' | 'meaning' | 'relation'
 export type Tone = 'formal' | 'humorous' | 'child' | 'reflective'
+export type Level = 'beginner' | 'normal' | 'expert'

@@ -11,7 +11,7 @@ interface Props {
 
 export default function ArtworkCard({ artwork }: Props) {
   return (
-    <Link href={`/artwork/${artwork.id}`} className={styles.card}>
+    <Link href={`/artwork/${artwork.id}/tone`} className={styles.card}>
       <div className={styles.imageWrapper}>
         {artwork.image_url ? (
           <Image

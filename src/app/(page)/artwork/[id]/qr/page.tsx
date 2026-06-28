@@ -1,22 +1,26 @@
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import ArtworkDetailClient from './ArtworkDetailClient'
+import QrConfirmClient from './QrConfirmClient'
 import type { Artwork } from '@/types'
 
-export default async function ArtworkDetailPage({
+export default async function QrConfirmPage({
   params,
 }: {
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
 
-  const { data: artwork } = await supabase
+  const { data: artwork, error } = await supabase
     .from('artworks')
     .select('*, artists(*)')
     .eq('id', id)
     .single()
 
+  if (error) {
+    if (error.code === 'PGRST116') notFound()
+    throw new Error(error.message)
+  }
   if (!artwork) notFound()
 
-  return <ArtworkDetailClient artwork={artwork as Artwork} />
+  return <QrConfirmClient artwork={artwork as Artwork} />
 }
