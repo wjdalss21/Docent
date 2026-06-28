@@ -175,8 +175,6 @@ export default function ArtworkDetailClient({ artwork, fromQr = false }: Props) 
     }
   }
 
-  const artistName = artwork.artists?.name ?? '작가 미상'
-
   return (
     <div className={styles.page}>
       {/* 헤더 */}
