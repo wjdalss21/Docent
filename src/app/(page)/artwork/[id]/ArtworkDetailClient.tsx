@@ -35,6 +35,7 @@ export default function ArtworkDetailClient({ artwork }: Props) {
   const [isChatLoading, setIsChatLoading] = useState(false)
 
   const abortRef = useRef<AbortController | null>(null)
+  const chatAbortRef = useRef<AbortController | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   // tone 미선택 시 tone 페이지로
@@ -52,7 +53,8 @@ export default function ArtworkDetailClient({ artwork }: Props) {
   const fetchDocent = useCallback(
     async (attr: Attribute) => {
       abortRef.current?.abort()
-      abortRef.current = new AbortController()
+      const controller = new AbortController()
+      abortRef.current = controller
 
       setDocentContent('')
       setIsStreaming(true)
@@ -63,12 +65,13 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ artwork_id: artwork.id, attribute: attr, tone, level }),
-          signal: abortRef.current.signal,
+          signal: controller.signal,
         })
 
         if (!res.ok) throw new Error('fetch failed')
+        if (!res.body) throw new Error('no body')
 
-        const reader = res.body!.getReader()
+        const reader = res.body.getReader()
         const decoder = new TextDecoder()
         let full = ''
 
@@ -83,7 +86,9 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           setDocentContent('해설을 불러오는 중 오류가 발생했습니다.')
         }
       } finally {
-        setIsStreaming(false)
+        if (abortRef.current === controller) {
+          setIsStreaming(false)
+        }
       }
     },
     [artwork.id, tone, level],
@@ -91,6 +96,8 @@ export default function ArtworkDetailClient({ artwork }: Props) {
 
   const handleAttributeSelect = (attr: Attribute) => {
     if (attr === attribute && docentContent) return
+    chatAbortRef.current?.abort()
+    setIsChatLoading(false)
     setAttribute(attr)
     fetchDocent(attr)
   }
@@ -98,6 +105,10 @@ export default function ArtworkDetailClient({ artwork }: Props) {
   const handleChatSubmit = async () => {
     const question = chatInput.trim()
     if (!question || !attribute || !tone || isChatLoading) return
+
+    chatAbortRef.current?.abort()
+    const controller = new AbortController()
+    chatAbortRef.current = controller
 
     setChatInput('')
     setChatMessages((prev) => [...prev, { role: 'user', content: question }])
@@ -117,9 +128,13 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           docentContent,
           question,
         }),
+        signal: controller.signal,
       })
 
-      const reader = res.body!.getReader()
+      if (!res.ok) throw new Error('chat fetch failed')
+      if (!res.body) throw new Error('no body')
+
+      const reader = res.body.getReader()
       const decoder = new TextDecoder()
       let answer = ''
 
@@ -135,10 +150,14 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           return updated
         })
       }
-    } catch {
-      setChatMessages((prev) => [...prev, { role: 'assistant', content: '오류가 발생했습니다.' }])
+    } catch (e) {
+      if ((e as Error).name !== 'AbortError') {
+        setChatMessages((prev) => [...prev, { role: 'assistant', content: '오류가 발생했습니다.' }])
+      }
     } finally {
-      setIsChatLoading(false)
+      if (chatAbortRef.current === controller) {
+        setIsChatLoading(false)
+      }
     }
   }
 

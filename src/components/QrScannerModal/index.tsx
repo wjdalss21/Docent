@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type QrScannerType from 'qr-scanner'
 import styles from './QrScannerModal.module.scss'
@@ -13,6 +13,7 @@ export default function QrScannerModal({ onClose }: Props) {
   const router = useRouter()
   const videoRef = useRef<HTMLVideoElement>(null)
   const scannerRef = useRef<InstanceType<typeof QrScannerType> | null>(null)
+  const [cameraError, setCameraError] = useState<string | null>(null)
 
   const handleResult = useCallback(
     (data: string) => {
@@ -49,7 +50,9 @@ export default function QrScannerModal({ onClose }: Props) {
         },
       )
 
-      scanner.start().catch(console.error)
+      scanner.start().catch(() => {
+        setCameraError('카메라에 접근할 수 없습니다. 권한을 확인해주세요.')
+      })
       scannerRef.current = scanner
     })
 
@@ -65,10 +68,17 @@ export default function QrScannerModal({ onClose }: Props) {
           ✕
         </button>
         <p className={styles.instruction}>작품 옆 QR 코드를 스캔하세요</p>
-        <div className={styles.videoWrapper}>
-          <video ref={videoRef} className={styles.video} />
-        </div>
-        <p className={styles.hint}>카메라를 QR 코드에 가까이 대주세요</p>
+        {cameraError ? (
+          <div className={styles.errorWrapper}>
+            <p className={styles.errorMsg}>{cameraError}</p>
+            <button className={styles.retryBtn} onClick={onClose}>닫기</button>
+          </div>
+        ) : (
+          <div className={styles.videoWrapper}>
+            <video ref={videoRef} className={styles.video} />
+          </div>
+        )}
+        {!cameraError && <p className={styles.hint}>카메라를 QR 코드에 가까이 대주세요</p>}
       </div>
     </div>
   )

@@ -15,9 +15,7 @@ export default function ArtworkGrid() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (searchParams.get('qr') === '1') {
-      setShowQr(true)
-    }
+    setShowQr(searchParams.get('qr') === '1')
   }, [searchParams])
   const { data: artworks, isLoading, isError } = useArtworks()
 

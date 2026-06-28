@@ -85,3 +85,31 @@
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
 }
+
+.errorWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-xl 0;
+}
+
+.errorMsg {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+.retryBtn {
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-md;
+  background: rgba(255, 255, 255, 0.15);
+  color: $color-surface;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  transition: background $transition-base;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}

@@ -16,7 +16,7 @@ export default function QrConfirmClient({ artwork }: Props) {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <button onClick={() => router.push('/?qr=1')} className={styles.backBtn}>
+        <button onClick={() => router.push('/?qr=1')} className={styles.backBtn} aria-label="다시 찍기">
           ‹
         </button>
       </header>
