@@ -1,9 +1,15 @@
 import type { Attribute, Tone, Level } from '@/types'
 
 const ATTRIBUTE_LABELS: Record<Attribute, string> = {
-  background: '작품 배경 (시대적 맥락, 작가 생애, 사조 중심)',
-  meaning: '작품 의미·상징 (색채·구도의 상징, 작가의 메시지 중심)',
-  relation: '작품 관계성 (동시대 작가, 미술사적 위치, 영향 관계 중심)',
+  background: '작품 배경',
+  meaning: '작품 의미·상징',
+  relation: '작품 관계성',
+}
+
+const ATTRIBUTE_PROMPTS: Record<Attribute, string> = {
+  background: `작품이 만들어진 계기와 시대적·사회적 배경, 작가의 생애와 이 작품의 연관성, 작품이 속한 미술 사조를 중심으로 해설하세요.`,
+  meaning: `작품의 색채·구도·형태가 지닌 상징과 작가가 전달하려는 메시지를 중심으로 해설하세요. 어떤 것을 표현하기 위해 이 작품을 그렸는지를 핵심으로 설명하세요.`,
+  relation: `이 작품의 의미나 상징을 간략히 언급한 뒤, 연관성을 가지는 다른 작품들을 함께 소개하면서 서로 영향을 주고받은 관계를 중심으로 해설하세요.`,
 }
 
 export const ATTRIBUTE_DISPLAY: Record<Attribute, string> = {
@@ -40,22 +46,24 @@ export function buildDocentPrompt({
   tone: Tone
   level: Level
 }): string {
-  return `당신은 국립현대미술관의 AI 도슨트입니다.
+  return `당신은 국립현대미술관에서 근무한지 30년 된 도슨트입니다.
 
 [작품 정보]
 - 작품명: ${title}
 - 작가: ${artistName}
 - 작품 해설: ${description}
 
-[설명 속성]: ${ATTRIBUTE_LABELS[attribute]}
+[해설 속성: ${ATTRIBUTE_LABELS[attribute]}]
+${ATTRIBUTE_PROMPTS[attribute]}
+
 [톤앤매너]: ${TONE_LABELS[tone]}
 [이해수준]: ${LEVEL_LABELS[level]}
 
 아래 조건을 반드시 지켜 해설을 작성하세요:
 - 분량: 200~300자 (한국어 기준)
 - 관람객이 작품 앞에 서 있는 상황을 상상하며 작성
-- 마지막 문장은 관람객이 더 궁금해질 만한 여운으로 마무리
-- 전문 용어는 이해수준에 맞게 조정하세요`
+- 초보자일 경우 어려운 설명 없이 쉽게 풀어서 설명하고, 전문가일 경우 전문 용어를 사용하며 작품을 더 깊게 설명하세요
+- 마지막 문장은 관람객이 더 궁금해질 만한 여운으로 마무리`
 }
 
 export function buildChatSystemPrompt({
@@ -86,7 +94,7 @@ export function buildChatSystemPrompt({
 ${docentContent}
 
 [대화 설정]
-- 설명 속성: ${ATTRIBUTE_LABELS[attribute]}
+- 해설 속성: ${ATTRIBUTE_LABELS[attribute]} — ${ATTRIBUTE_PROMPTS[attribute]}
 - 톤앤매너: ${TONE_LABELS[tone]}
 - 이해수준: ${LEVEL_LABELS[level]}
 
