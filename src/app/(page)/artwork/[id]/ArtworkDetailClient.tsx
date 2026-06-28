@@ -39,7 +39,7 @@ export default function ArtworkDetailClient({ artwork }: Props) {
   const chatAbortRef = useRef<AbortController | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
-  // tone 미선택 시 리다이렉트 (QR 직접 진입이면 확인 페이지로)
+  // tone 미선택 시 톤 선택 페이지로 리다이렉트
   useEffect(() => {
     if (tone === null) {
       router.replace(`/artwork/${artwork.id}/tone`)
