@@ -63,6 +63,7 @@ export default function ArtworkGrid({ onLogoClick }: Props) {
         className={styles.search}
         type="text"
         placeholder="작품명 또는 작가명 검색"
+        aria-label="작품명 또는 작가명 검색"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />

@@ -1,14 +1,20 @@
 'use client'
 
 import { useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import Intro from '@/components/Intro'
 import ArtworkGrid from '@/components/ArtworkGrid'
 
 function HomeContent() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const [showIntro, setShowIntro] = useState(() => searchParams.get('qr') !== '1')
+
+  const handleLogoClick = () => {
+    setShowIntro(true)
+    router.replace('/')
+  }
 
   return (
     <>
@@ -23,7 +29,7 @@ function HomeContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <ArtworkGrid onLogoClick={() => setShowIntro(true)} />
+            <ArtworkGrid onLogoClick={handleLogoClick} />
           </motion.div>
         )}
       </AnimatePresence>
