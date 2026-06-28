@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { useDocentStore } from '@/stores/docentStore'
@@ -174,7 +175,14 @@ export default function ArtworkDetailClient({ artwork }: Props) {
     <div className={styles.page}>
       {/* 헤더 */}
       <header className={styles.header}>
-        <button onClick={() => router.back()} className={styles.backBtn}>‹</button>
+        <Link
+          href="/"
+          className={styles.logoLink}
+          onClick={() => resetSession()}
+          aria-label="홈으로"
+        >
+          <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={72} height={26} priority />
+        </Link>
         <button
           onClick={() => {
             resetSession()

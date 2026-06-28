@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useArtworks } from '@/hooks/useArtworks'
 import ArtworkCard from '@/components/ArtworkCard'
@@ -32,13 +33,15 @@ export default function ArtworkGrid() {
     <div className={styles.container}>
       {/* 로고 */}
       <div className={styles.logoWrapper}>
-        <Image
-          src="/muse_logo_horizontal.svg"
-          alt="뮤즈"
-          width={100}
-          height={36}
-          priority
-        />
+        <Link href="/" aria-label="홈으로">
+          <Image
+            src="/muse_logo_horizontal.svg"
+            alt="뮤즈"
+            width={100}
+            height={36}
+            priority
+          />
+        </Link>
       </div>
 
       {/* 헤더 */}
