@@ -67,9 +67,10 @@ id          uuid PK
 artwork_id  uuid FK → artworks.id ON DELETE CASCADE
 attribute   text CHECK IN ('background','meaning','relation')
 tone        text CHECK IN ('formal','humorous','child','reflective')
+level       text CHECK IN ('beginner','normal','expert') NOT NULL DEFAULT 'normal'
 content     text NOT NULL
 created_at  timestamptz
-UNIQUE (artwork_id, attribute, tone)
+UNIQUE (artwork_id, attribute, tone, level)
 ```
 
 ---
