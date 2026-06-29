@@ -14,6 +14,8 @@ interface Props {
   artwork: Artwork
 }
 
+const MAX_CHAT_HISTORY = 20
+
 const ATTRIBUTE_TABS: { attr: Attribute; label: string }[] = [
   { attr: 'background', label: '작품 배경' },
   { attr: 'meaning', label: '작품 의미·상징' },
@@ -127,7 +129,7 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           tone,
           level,
           docentContent,
-          chatHistory: chatMessages,
+          chatHistory: chatMessages.slice(-MAX_CHAT_HISTORY),
           question,
         }),
         signal: controller.signal,
