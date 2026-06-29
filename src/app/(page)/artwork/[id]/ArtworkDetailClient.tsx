@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { useDocentStore } from '@/stores/docentStore'
@@ -12,6 +13,8 @@ import styles from './ArtworkDetail.module.scss'
 interface Props {
   artwork: Artwork
 }
+
+const MAX_CHAT_HISTORY = 20
 
 const ATTRIBUTE_TABS: { attr: Attribute; label: string }[] = [
   { attr: 'background', label: '작품 배경' },
@@ -38,7 +41,7 @@ export default function ArtworkDetailClient({ artwork }: Props) {
   const chatAbortRef = useRef<AbortController | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
-  // tone 미선택 시 tone 페이지로
+  // tone 미선택 시 톤 선택 페이지로 리다이렉트
   useEffect(() => {
     if (tone === null) {
       router.replace(`/artwork/${artwork.id}/tone`)
@@ -126,6 +129,7 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           tone,
           level,
           docentContent,
+          chatHistory: chatMessages.slice(-MAX_CHAT_HISTORY),
           question,
         }),
         signal: controller.signal,
@@ -174,7 +178,14 @@ export default function ArtworkDetailClient({ artwork }: Props) {
     <div className={styles.page}>
       {/* 헤더 */}
       <header className={styles.header}>
-        <button onClick={() => router.back()} className={styles.backBtn}>‹</button>
+        <Link
+          href="/"
+          className={styles.logoLink}
+          onClick={() => resetSession()}
+          aria-label="홈으로"
+        >
+          <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={72} height={26} priority />
+        </Link>
         <button
           onClick={() => {
             resetSession()

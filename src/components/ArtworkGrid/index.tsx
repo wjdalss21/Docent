@@ -8,9 +8,12 @@ import ArtworkCard from '@/components/ArtworkCard'
 import QrScannerModal from '@/components/QrScannerModal'
 import styles from './ArtworkGrid.module.scss'
 
-export default function ArtworkGrid() {
+interface Props {
+  onLogoClick?: () => void
+}
+
+export default function ArtworkGrid({ onLogoClick }: Props) {
   const [query, setQuery] = useState('')
-  const [showSearch, setShowSearch] = useState(false)
   const [showQr, setShowQr] = useState(false)
   const searchParams = useSearchParams()
 
@@ -32,46 +35,38 @@ export default function ArtworkGrid() {
     <div className={styles.container}>
       {/* 로고 */}
       <div className={styles.logoWrapper}>
-        <Image
-          src="/muse_logo_horizontal.svg"
-          alt="뮤즈"
-          width={100}
-          height={36}
-          priority
-        />
+        <button onClick={onLogoClick} className={styles.logoBtn} aria-label="처음으로">
+          <Image
+            src="/muse_logo_horizontal.svg"
+            alt="뮤즈"
+            width={100}
+            height={36}
+            priority
+          />
+        </button>
       </div>
 
       {/* 헤더 */}
       <header className={styles.header}>
         <h1 className={styles.heading}>주요 작품</h1>
-        <div className={styles.actions}>
-          <button
-            className={styles.iconBtn}
-            onClick={() => setShowQr(true)}
-            aria-label="QR 스캔"
-          >
-            <QrIcon />
-          </button>
-          <button
-            className={styles.iconBtn}
-            onClick={() => setShowSearch((prev) => !prev)}
-            aria-label="검색"
-          >
-            🔍
-          </button>
-        </div>
+        <button
+          className={styles.iconBtn}
+          onClick={() => setShowQr(true)}
+          aria-label="QR 스캔"
+        >
+          <QrIcon />
+        </button>
       </header>
 
-      {showSearch && (
-        <input
-          className={styles.search}
-          type="text"
-          placeholder="작품명 또는 작가명 검색"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          autoFocus
-        />
-      )}
+      {/* 검색창 — 항상 표시 */}
+      <input
+        className={styles.search}
+        type="text"
+        placeholder="작품명 또는 작가명 검색"
+        aria-label="작품명 또는 작가명 검색"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
 
       {isLoading && <div className={styles.status}>작품을 불러오는 중...</div>}
       {isError && <div className={styles.status}>작품을 불러오지 못했습니다.</div>}

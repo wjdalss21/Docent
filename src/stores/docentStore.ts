@@ -29,5 +29,5 @@ export const useDocentStore = create<DocentStore>((set) => ({
   setLevel: (level) => set({ level }),
   addChat: (msg) => set((state) => ({ chatHistory: [...state.chatHistory, msg] })),
   resetChat: () => set({ chatHistory: [] }),
-  resetSession: () => set({ attribute: null, chatHistory: [] }),
+  resetSession: () => set({ attribute: null, tone: null, chatHistory: [] }),
 }))

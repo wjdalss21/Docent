@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import styles from './Intro.module.scss'
 
@@ -23,6 +24,7 @@ export default function Intro({ onDismiss }: Props) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.6 }}
       >
+        <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={140} height={50} priority />
         <p className={styles.label}>AI 도슨트</p>
         <h1 className={styles.title}>
           작품 앞에서<br />
