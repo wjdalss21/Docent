@@ -47,7 +47,9 @@ export default function TonePage() {
         <button onClick={() => { resetSession(); router.push('/?skip=1') }} className={styles.backBtn} aria-label="작품 목록으로">
           <ArrowBackIosIcon fontSize="small" />
         </button>
-        <Image src={logoSrc} alt="MUSE" width={100} height={36} priority className={styles.logo} />
+        <button onClick={() => { resetSession(); router.push('/') }} className={styles.logoBtn} aria-label="인트로로">
+          <Image src={logoSrc} alt="MUSE" width={100} height={36} priority />
+        </button>
       </header>
 
       <div className={styles.content}>

@@ -17,8 +17,10 @@
   justify-content: space-between;
 }
 
-.logo {
+.logoBtn {
   margin-right: -$spacing-sm;
+  display: flex;
+  align-items: center;
 }
 
 .backBtn {
