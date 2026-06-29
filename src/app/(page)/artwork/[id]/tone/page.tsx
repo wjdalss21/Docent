@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
+import Image from 'next/image'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { useDocentStore } from '@/stores/docentStore'
 import type { Tone, Level } from '@/types'
 import styles from './TonePage.module.scss'
@@ -39,7 +41,10 @@ export default function TonePage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <button onClick={() => router.back()} className={styles.backBtn}>‹</button>
+        <button onClick={() => { resetSession(); router.push('/?skip=1') }} className={styles.backBtn} aria-label="작품 목록으로">
+          <ArrowBackIosIcon fontSize="small" />
+        </button>
+        <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={100} height={36} priority className={styles.logo} />
       </header>
 
       <div className={styles.content}>

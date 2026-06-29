@@ -10,7 +10,15 @@
 }
 
 .header {
-  padding: $spacing-md;
+  padding: $spacing-md 0 $spacing-md $spacing-md;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  margin-right: -$spacing-sm;
 }
 
 .backBtn {
@@ -21,11 +29,13 @@
   color: $color-surface;
   border: none;
   cursor: pointer;
-  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+
+  svg {
+    margin-left: 3px;
+  }
 }
 
 .content {

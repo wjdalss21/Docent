@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ReactMarkdown from 'react-markdown'
 import { useDocentStore } from '@/stores/docentStore'
 import { ATTRIBUTE_DISPLAY } from '@/lib/prompts'
@@ -178,23 +179,21 @@ export default function ArtworkDetailClient({ artwork }: Props) {
     <div className={styles.page}>
       {/* 헤더 */}
       <header className={styles.header}>
+        <button
+          className={styles.backBtn}
+          onClick={() => { resetSession(); router.push(`/artwork/${artwork.id}/tone`) }}
+          aria-label="톤 선택으로"
+        >
+          <ArrowBackIosIcon fontSize="small" />
+        </button>
         <Link
-          href="/"
+          href="/?skip=1"
           className={styles.logoLink}
           onClick={() => resetSession()}
           aria-label="홈으로"
         >
-          <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={72} height={26} priority />
+          <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={100} height={36} priority />
         </Link>
-        <button
-          onClick={() => {
-            resetSession()
-            router.push('/')
-          }}
-          className={styles.consultBtn}
-        >
-          다른 상담하기
-        </button>
       </header>
 
       {/* 스크롤 영역 */}
@@ -206,18 +205,9 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           </h1>
         </div>
 
-        {artwork.image_url && (
-          <div className={styles.imageWrapper}>
-            <Image
-              src={artwork.image_url}
-              alt={artwork.title}
-              fill
-              sizes="430px"
-              className={styles.image}
-              priority
-            />
-          </div>
-        )}
+        <div className={styles.imageWrapper}>
+          <div className={styles.placeholder} />
+        </div>
 
         {/* 도슨트 영역 */}
         <div className={styles.docentSection}>

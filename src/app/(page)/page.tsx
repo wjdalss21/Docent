@@ -9,7 +9,9 @@ import ArtworkGrid from '@/components/ArtworkGrid'
 function HomeContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [showIntro, setShowIntro] = useState(() => searchParams.get('qr') !== '1')
+  const [showIntro, setShowIntro] = useState(() =>
+    searchParams.get('qr') !== '1' && searchParams.get('skip') !== '1',
+  )
 
   const handleLogoClick = () => {
     setShowIntro(true)

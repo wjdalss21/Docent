@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import type { Artwork } from '@/types'
 import styles from './ArtworkCard.module.scss'
 
@@ -13,17 +12,7 @@ export default function ArtworkCard({ artwork }: Props) {
   return (
     <Link href={`/artwork/${artwork.id}/tone`} className={styles.card}>
       <div className={styles.imageWrapper}>
-        {artwork.image_url ? (
-          <Image
-            src={artwork.image_url}
-            alt={artwork.title}
-            fill
-            sizes="120px"
-            className={styles.image}
-          />
-        ) : (
-          <div className={styles.placeholder} />
-        )}
+        <div className={styles.placeholder} />
       </div>
       <div className={styles.info}>
         <p className={styles.title}>{artwork.title}</p>
