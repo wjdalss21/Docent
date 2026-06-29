@@ -9,10 +9,8 @@ import ArtworkCard from '@/components/ArtworkCard'
 import QrScannerModal from '@/components/QrScannerModal'
 import styles from './ArtworkGrid.module.scss'
 
-const LOGO_SRC = {
-  light: '/muse_logo_horizontal.svg',
-  dark: '/muse_logo_horizontal_white.svg',
-}
+const LOGO_SRC = (theme: string) =>
+  theme === 'dark' ? '/muse_logo_horizontal_white.svg' : '/muse_logo_horizontal.svg'
 
 interface Props {
   onLogoClick?: () => void
@@ -44,7 +42,7 @@ export default function ArtworkGrid({ onLogoClick }: Props) {
       <div className={styles.logoWrapper}>
         <button onClick={onLogoClick} className={styles.logoBtn} aria-label="처음으로">
           <Image
-            src={LOGO_SRC[theme]}
+            src={LOGO_SRC(theme)}
             alt="뮤즈"
             width={100}
             height={36}

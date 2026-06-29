@@ -127,7 +127,7 @@
   transition: color $transition-base;
 
   .card.selected & {
-    color: #1a1a1a;
+    color: var(--color-selected-text, #1a1a1a);
   }
 }
 
@@ -137,7 +137,7 @@
   transition: color $transition-base;
 
   .card.selected & {
-    color: #1a1a1a;
+    color: var(--color-selected-text, #1a1a1a);
   }
 }
 

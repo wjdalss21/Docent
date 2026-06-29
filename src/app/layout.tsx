@@ -19,6 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var s=JSON.parse(localStorage.getItem('muse-theme')||'{}');if(s.state&&s.state.theme==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}`,
+          }}
+        />
+      </head>
       <body>
         <QueryProvider>
           <ThemeProvider>{children}</ThemeProvider>

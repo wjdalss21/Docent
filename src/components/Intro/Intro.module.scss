@@ -44,7 +44,7 @@
 .label {
   font-size: $font-size-sm;
   font-weight: 500;
-  color: #3b82f6;
+  color: var(--color-accent);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
