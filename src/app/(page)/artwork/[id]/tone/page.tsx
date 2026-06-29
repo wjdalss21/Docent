@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation'
 import Image from 'next/image'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { useDocentStore } from '@/stores/docentStore'
+import { useThemeStore } from '@/stores/themeStore'
 import type { Tone, Level } from '@/types'
 import styles from './TonePage.module.scss'
 
@@ -27,6 +28,8 @@ export default function TonePage() {
   const id = params.id as string
 
   const { setTone, setLevel, resetSession } = useDocentStore()
+  const { theme } = useThemeStore()
+  const logoSrc = theme === 'dark' ? '/muse_logo_horizontal_white.svg' : '/muse_logo_horizontal.svg'
   const [selectedTone, setSelectedTone] = useState<Tone | null>(null)
   const [levelIndex, setLevelIndex] = useState(1)
 
@@ -44,7 +47,7 @@ export default function TonePage() {
         <button onClick={() => { resetSession(); router.push('/?skip=1') }} className={styles.backBtn} aria-label="작품 목록으로">
           <ArrowBackIosIcon fontSize="small" />
         </button>
-        <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={100} height={36} priority className={styles.logo} />
+        <Image src={logoSrc} alt="MUSE" width={100} height={36} priority className={styles.logo} />
       </header>
 
       <div className={styles.content}>

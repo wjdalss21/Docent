@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.scss'
 import QueryProvider from '@/components/QueryProvider'
+import ThemeProvider from '@/components/ThemeProvider'
 
 export const metadata: Metadata = {
   title: 'MUSE - AI 도슨트 플랫폼',
@@ -18,8 +19,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var s=JSON.parse(localStorage.getItem('muse-theme')||'{}');if(s.state&&s.state.theme==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}`,
+          }}
+        />
+      </head>
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   )

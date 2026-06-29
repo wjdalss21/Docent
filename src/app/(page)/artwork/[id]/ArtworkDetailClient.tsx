@@ -7,6 +7,7 @@ import Image from 'next/image'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ReactMarkdown from 'react-markdown'
 import { useDocentStore } from '@/stores/docentStore'
+import { useThemeStore } from '@/stores/themeStore'
 import { ATTRIBUTE_DISPLAY } from '@/lib/prompts'
 import type { Artwork, Attribute } from '@/types'
 import styles from './ArtworkDetail.module.scss'
@@ -31,6 +32,8 @@ interface ChatMsg {
 export default function ArtworkDetailClient({ artwork }: Props) {
   const router = useRouter()
   const { attribute, tone, level, setAttribute, resetSession } = useDocentStore()
+  const { theme } = useThemeStore()
+  const logoSrc = theme === 'dark' ? '/muse_logo_horizontal_white.svg' : '/muse_logo_horizontal.svg'
 
   const [docentContent, setDocentContent] = useState('')
   const [isStreaming, setIsStreaming] = useState(false)
@@ -192,7 +195,7 @@ export default function ArtworkDetailClient({ artwork }: Props) {
           onClick={() => resetSession()}
           aria-label="홈으로"
         >
-          <Image src="/muse_logo_horizontal.svg" alt="MUSE" width={100} height={36} priority />
+          <Image src={logoSrc} alt="MUSE" width={100} height={36} priority />
         </Link>
       </header>
 

@@ -1,4 +1,4 @@
-@use '@/styles/variables' as *;
+﻿@use '@/styles/variables' as *;
 
 .card {
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
   gap: $spacing-md;
   padding: $spacing-md;
-  background-color: $color-surface;
+  background-color: var(--color-surface);
   border-radius: $radius-lg;
   text-decoration: none;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
@@ -24,7 +24,7 @@
   height: 90px;
   border-radius: $radius-md;
   overflow: hidden;
-  background-color: $color-border;
+  background-color: var(--color-border);
 }
 
 .image {
@@ -34,7 +34,7 @@
 .placeholder {
   width: 100%;
   height: 100%;
-  background: $color-border;
+  background: var(--color-border);
 }
 
 .info {
@@ -47,7 +47,7 @@
 .title {
   font-size: $font-size-base;
   font-weight: 600;
-  color: $color-text-primary;
+  color: var(--color-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -55,12 +55,12 @@
 
 .artist {
   font-size: $font-size-sm;
-  color: $color-text-secondary;
+  color: var(--color-text-secondary);
 }
 
 .badge {
   font-size: $font-size-sm;
-  color: $color-accent;
+  color: var(--color-accent);
   font-weight: 500;
   margin-top: 4px;
 }

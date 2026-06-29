@@ -3,16 +3,21 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
+import { useThemeStore } from '@/stores/themeStore'
 import { useArtworks } from '@/hooks/useArtworks'
 import ArtworkCard from '@/components/ArtworkCard'
 import QrScannerModal from '@/components/QrScannerModal'
 import styles from './ArtworkGrid.module.scss'
+
+const LOGO_SRC = (theme: string) =>
+  theme === 'dark' ? '/muse_logo_horizontal_white.svg' : '/muse_logo_horizontal.svg'
 
 interface Props {
   onLogoClick?: () => void
 }
 
 export default function ArtworkGrid({ onLogoClick }: Props) {
+  const { theme } = useThemeStore()
   const [query, setQuery] = useState('')
   const [showQr, setShowQr] = useState(false)
   const searchParams = useSearchParams()
@@ -37,7 +42,7 @@ export default function ArtworkGrid({ onLogoClick }: Props) {
       <div className={styles.logoWrapper}>
         <button onClick={onLogoClick} className={styles.logoBtn} aria-label="처음으로">
           <Image
-            src="/muse_logo_horizontal.svg"
+            src={LOGO_SRC(theme)}
             alt="뮤즈"
             width={100}
             height={36}

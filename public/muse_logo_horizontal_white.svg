@@ -1,0 +1,35 @@
+<svg width="600" height="240" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <clipPath id="arch-clip">
+      <path d="M4 216 L4 82 A62 62 0 0 1 128 82 L128 216 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- 반투명 라벤더 배경 -->
+  <path d="M4 216 L4 82 A62 62 0 0 1 128 82 L128 216 Z" fill="rgba(255,255,255,0.12)"/>
+
+  <g clip-path="url(#arch-clip)">
+    <polygon points="10,216 44,138 78,216" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="8" stroke-linejoin="round"/>
+    <polygon points="50,216 84,138 118,216" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="8" stroke-linejoin="round"/>
+  </g>
+
+  <circle cx="84" cy="108" r="13" fill="#c4b5f4"/>
+
+  <path d="M4 216 L4 82 A62 62 0 0 1 128 82 L128 216 Z"
+        fill="none" stroke="white" stroke-width="10" stroke-linejoin="round"/>
+  <line x1="4" y1="216" x2="128" y2="216" stroke="white" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- MUSE 화이트 -->
+  <text x="152" y="148"
+        font-family="'Space Grotesk', Arial, sans-serif"
+        font-weight="700" font-size="84"
+        fill="white" letter-spacing="4">MUSE</text>
+
+  <!-- 서브타이틀 -->
+  <text x="154" y="180"
+        font-family="'Space Grotesk', Arial, sans-serif"
+        font-weight="400" font-size="14"
+        fill="rgba(255,255,255,0.6)" letter-spacing="4">AI 도슨트 플랫폼</text>
+
+</svg>

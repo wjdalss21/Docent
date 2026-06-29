@@ -20,13 +20,12 @@ function HomeContent() {
 
   return (
     <>
-      <AnimatePresence>
-        {showIntro && <Intro onDismiss={() => setShowIntro(false)} />}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {!showIntro && (
+      <AnimatePresence mode="wait">
+        {showIntro ? (
+          <Intro key="intro" onDismiss={() => setShowIntro(false)} />
+        ) : (
           <motion.div
+            key="grid"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
