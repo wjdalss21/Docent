@@ -20,11 +20,11 @@ function HomeContent() {
 
   return (
     <>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {showIntro && <Intro onDismiss={() => setShowIntro(false)} />}
       </AnimatePresence>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {!showIntro && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
