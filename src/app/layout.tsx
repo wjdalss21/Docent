@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import '@/styles/globals.scss'
 import QueryProvider from '@/components/QueryProvider'
 import ThemeProvider from '@/components/ThemeProvider'
@@ -19,14 +20,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <head>
-        <script
+      <body>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `try{var s=JSON.parse(localStorage.getItem('muse-theme')||'{}');if(s.state&&s.state.theme==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}`,
           }}
         />
-      </head>
-      <body>
         <QueryProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </QueryProvider>
